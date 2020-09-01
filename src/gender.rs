@@ -32,6 +32,16 @@ impl Gender {
         }
         Gender::Androgynous
     }
+
+    pub fn equal(&self, gender: &str) -> bool {
+        if *self == Gender::Androgynous {
+            return true;
+        }
+        match gender {
+            ANDROGYNOUS => true,
+            _ => self.value() == gender,
+        }
+    }
 }
 
 impl Display for Gender {
@@ -60,5 +70,20 @@ mod tests {
     fn detect_androgynous() {
         let actual = Gender::detect_gender("Бильжо");
         assert_eq!(Gender::Androgynous, actual);
+    }
+
+    #[test]
+    fn equal_test() {
+        assert!(Gender::Male.equal("male"));
+        assert!(Gender::Male.equal("androgynous"));
+        assert!(!Gender::Male.equal("female"));
+
+        assert!(!Gender::Female.equal("male"));
+        assert!(Gender::Female.equal("androgynous"));
+        assert!(Gender::Female.equal("female"));
+
+        assert!(Gender::Androgynous.equal("male"));
+        assert!(Gender::Androgynous.equal("androgynous"));
+        assert!(Gender::Androgynous.equal("female"));
     }
 }
