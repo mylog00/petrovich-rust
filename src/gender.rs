@@ -23,6 +23,14 @@ impl Gender {
         }
     }
 
+    pub fn of(gender: &str) -> Option<Gender> {
+        match gender {
+            MALE => Some(Gender::Male),
+            FEMALE => Some(Gender::Female),
+            ANDROGYNOUS => Some(Gender::Androgynous),
+            _ => None,
+        }
+    }
     pub fn detect_gender(middle_name: &str) -> Gender {
         if middle_name.ends_with("ич") {
             return Gender::Male;
@@ -33,13 +41,14 @@ impl Gender {
         Gender::Androgynous
     }
 
-    pub fn equal(&self, gender: &str) -> bool {
-        if *self == Gender::Androgynous {
+    //TODO add doc
+    pub fn equal(&self, gender: &Gender) -> bool {
+        if self == &Gender::Androgynous {
             return true;
         }
         match gender {
-            ANDROGYNOUS => true,
-            _ => self.value() == gender,
+            Gender::Androgynous => true,
+            _ => self == gender,
         }
     }
 }
@@ -74,16 +83,16 @@ mod tests {
 
     #[test]
     fn equal_test() {
-        assert!(Gender::Male.equal("male"));
-        assert!(Gender::Male.equal("androgynous"));
-        assert!(!Gender::Male.equal("female"));
+        assert!(Gender::Male.equal(&Gender::Male));
+        assert!(Gender::Male.equal(&Gender::Androgynous));
+        assert!(!Gender::Male.equal(&Gender::Female));
 
-        assert!(!Gender::Female.equal("male"));
-        assert!(Gender::Female.equal("androgynous"));
-        assert!(Gender::Female.equal("female"));
+        assert!(!Gender::Female.equal(&Gender::Male));
+        assert!(Gender::Female.equal(&Gender::Androgynous));
+        assert!(Gender::Female.equal(&Gender::Female));
 
-        assert!(Gender::Androgynous.equal("male"));
-        assert!(Gender::Androgynous.equal("androgynous"));
-        assert!(Gender::Androgynous.equal("female"));
+        assert!(Gender::Androgynous.equal(&Gender::Male));
+        assert!(Gender::Androgynous.equal(&Gender::Androgynous));
+        assert!(Gender::Androgynous.equal(&Gender::Female));
     }
 }
