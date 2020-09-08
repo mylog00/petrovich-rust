@@ -21,9 +21,11 @@ impl Petrovich {
     pub fn first_name(&self, first_name: &str, gender: &Gender, case: &Case) -> String {
         inflect(&self.rules.first_name(), first_name, case, gender)
     }
+
     pub fn last_name(&self, last_name: &str, gender: &Gender, case: &Case) -> String {
         inflect(&self.rules.last_name(), last_name, case, gender)
     }
+
     pub fn middle_name(&self, middle_name: &str, gender: &Gender, case: &Case) -> String {
         inflect(&self.rules.middle_name(), middle_name, case, gender)
     }

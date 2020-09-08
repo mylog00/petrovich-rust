@@ -119,7 +119,7 @@ impl Rule {
         // that means we can apply that rule for first word only.
         // If property `first_word = false`
         // that means we can apply that rule for any word.
-        if self.first_word && !is_first_word  {
+        if self.first_word && !is_first_word {
             return false;
         }
         for val in &self.test {
