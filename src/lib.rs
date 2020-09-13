@@ -35,7 +35,7 @@ fn inflect(rule_group: &RuleGroup, name: &str, case: &Case, gender: &Gender) -> 
     let name = name.trim().to_lowercase();
     let name_vec: Vec<&str> = name.split('-').collect();
     let mut result: Vec<String> = Vec::with_capacity(name_vec.len());
-    let mut is_first = true;
+    let mut is_first = name_vec.len() > 1;
     for word in name_vec {
         let rule = rule_group.get_rule(word, gender, is_first);
         match rule {

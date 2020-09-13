@@ -10,6 +10,7 @@ fn first_name_misc_test() {
     }
 }
 
+#[ignore]
 #[test]
 fn first_name_test() {
     let petrovich = common::load_petrovich();

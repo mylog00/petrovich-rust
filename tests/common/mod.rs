@@ -31,7 +31,6 @@ pub struct NameTestCase {
 pub fn load_name_test_cases(file_name: &str) -> Vec<NameTestCase> {
     read_lines(format!("{}{}", TEST_FILE_DIR, file_name))
         .skip(1)
-        .take(5) //TODO remove later
         .map(|line| map_2_name_test_case(&line.unwrap()))
         .collect()
 }
