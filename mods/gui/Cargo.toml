@@ -6,5 +6,5 @@ edition = "2018"
 
 [dependencies]
 petrovich_core = { path = "../core" }
-gtk = { version = "0.9", default-features = false }
+gtk = { version = "0.9", default-features = false, features = [ "v3_22" ] }
 gio = { version = "0.9", default-features = false }
