@@ -1,6 +1,6 @@
-[submodule "petrovich-rules"]
-	path = petrovich-rules
+[submodule "mods/core/petrovich-rules"]
+	path = mods/core/petrovich-rules
 	url = https://github.com/petrovich/petrovich-rules.git
-[submodule "petrovich-eval"]
-	path = petrovich-eval
+[submodule "mods/core/petrovich-eval"]
+	path = mods/core/petrovich-eval
 	url = https://github.com/petrovich/petrovich-eval.git
