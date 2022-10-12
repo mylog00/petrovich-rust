@@ -9,8 +9,7 @@ fn main() {
     let pv = Petrovich::new("mods/core/petrovich-rules/rules.yml").unwrap();
     PETROVICH.set(pv).unwrap();
 
-    let application = Application::new(Some("com.man.petrovich"), Default::default())
-        .expect("failed to initialize GTK application");
+    let application = Application::new(Some("com.man.petrovich"), Default::default());
 
     application.connect_activate(|app| {
         let window = ApplicationWindow::new(app);
@@ -45,9 +44,9 @@ fn main() {
             println!("Clicked!");
 
             let pv = PETROVICH.get().unwrap();
-            let f = pv.first_name(&fnc.get_text(), &Gender::Male, &Case::Accusative);
-            let l = pv.first_name(&lnc.get_text(), &Gender::Male, &Case::Accusative);
-            let p = pv.first_name(&pnc.get_text(), &Gender::Male, &Case::Accusative);
+            let f = pv.first_name(&fnc.text(), &Gender::Male, &Case::Accusative);
+            let l = pv.first_name(&lnc.text(), &Gender::Male, &Case::Accusative);
+            let p = pv.first_name(&pnc.text(), &Gender::Male, &Case::Accusative);
             let mut res = String::new();
             if !f.is_empty() {
                 res += &f;
@@ -79,5 +78,5 @@ fn main() {
         window.show_all();
     });
 
-    application.run(&[]);
+    application.run();
 }
