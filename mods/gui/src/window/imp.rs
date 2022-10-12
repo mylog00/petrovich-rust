@@ -1,16 +1,26 @@
-use std::cell::Cell;
-
 use glib::subclass::InitializingObject;
-use gtk::{prelude::*};
+use gtk::{prelude::*, Entry, Label};
 use gtk::subclass::prelude::*;
 use gtk::{glib, CompositeTemplate};
+use once_cell::sync::OnceCell;
+use petrovich_core::Petrovich;
+use petrovich_core::case::Case;
+use petrovich_core::gender::Gender;
 
 use crate::custom_button::CustomButton;
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/man/petrovich/window.ui")]
 pub struct Window {
-    pub number: Cell<i32>,
+    #[template_child]
+    pub first_name: TemplateChild<Entry>,
+    #[template_child]
+    pub last_name: TemplateChild<Entry>,
+    #[template_child]
+    pub patronimic_name: TemplateChild<Entry>,
+    #[template_child]
+    pub content: TemplateChild<Label>,
+    petrovich: OnceCell<Petrovich>,
 }
 
 #[glib::object_subclass]
@@ -36,14 +46,25 @@ impl ObjectSubclass for Window {
 #[gtk::template_callbacks]
 impl Window {
     #[template_callback]
-    fn handle_button_clicked(&self, button: &CustomButton) {
-        let number_increased = self.number.get() + 1;
-        self.number.set(number_increased);
-        button.set_label(&number_increased.to_string())
+    fn handle_button_clicked(&self) {
+        let pv = self.petrovich.get().unwrap();
+        let first_name = pv.first_name(self.first_name.text().as_str(), &Gender::Male, &Case::Accusative);
+        let last_name = pv.first_name(self.last_name.text().as_str(), &Gender::Male, &Case::Accusative);
+        let patronimic_name = pv.first_name(self.patronimic_name.text().as_str(), &Gender::Male, &Case::Accusative);
+
+        let res = vec![first_name, last_name, patronimic_name].join(" ");
+        self.content.set_text(&res);
     }
 }
 
-impl ObjectImpl for Window {}
+impl ObjectImpl for Window {
+    fn constructed(&self, obj: &Self::Type) {
+        self.parent_constructed(obj);
+
+        let pv = Petrovich::new("mods/core/petrovich-rules/rules.yml").expect("Loading petrovich rules");
+        self.petrovich.set(pv).expect("Setting up petrovich object");
+    }
+}
 impl WidgetImpl for Window {}
 impl WindowImpl for Window {}
 impl ApplicationWindowImpl for Window {}

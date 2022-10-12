@@ -6,8 +6,9 @@ edition = "2018"
 
 [dependencies]
 petrovich_core = { path = "../core" }
-gtk = { version = "0.4.8", package = "gtk4", default-features = false}
-gio = { version = "0.15", default-features = false }
+gtk = { version = "0.4.8", package = "gtk4" }
+gio = { version = "0.15" }
+glib ={ version = "0.15"}
 once_cell = "1.5"
 
 [build-dependencies]
