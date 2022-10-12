@@ -1,5 +1,5 @@
 use glib::subclass::InitializingObject;
-use gtk::{prelude::*, Entry, Label};
+use gtk::{prelude::*, Entry, Label, DropDown};
 use gtk::subclass::prelude::*;
 use gtk::{glib, CompositeTemplate};
 use once_cell::sync::OnceCell;
@@ -18,6 +18,10 @@ pub struct Window {
     pub last_name: TemplateChild<Entry>,
     #[template_child]
     pub patronimic_name: TemplateChild<Entry>,
+    #[template_child]
+    pub gender: TemplateChild<DropDown>,
+    #[template_child]
+    pub case: TemplateChild<DropDown>,
     #[template_child]
     pub content: TemplateChild<Label>,
     petrovich: OnceCell<Petrovich>,
@@ -48,11 +52,30 @@ impl Window {
     #[template_callback]
     fn handle_button_clicked(&self) {
         let pv = self.petrovich.get().unwrap();
-        let first_name = pv.first_name(self.first_name.text().as_str(), &Gender::Male, &Case::Accusative);
-        let last_name = pv.first_name(self.last_name.text().as_str(), &Gender::Male, &Case::Accusative);
-        let patronimic_name = pv.first_name(self.patronimic_name.text().as_str(), &Gender::Male, &Case::Accusative);
 
-        let res = vec![first_name, last_name, patronimic_name].join(" ");
+        let gender = self.gender.selected();
+        let gender = match gender {
+            0 => Gender::Male,
+            1 => Gender::Female,
+            2 => Gender::Androgynous,
+            _ => unreachable!()
+        };
+        let case = self.case.selected();
+        let case = match case {
+            0 => Case::Nominative,
+            1 => Case::Genitive,
+            2 => Case::Dative,
+            3 => Case::Accusative,
+            4 => Case::Instrumental,
+            5 => Case::Prepositional,
+            _ => unreachable!(),
+        };
+
+        let first_name = pv.first_name(self.first_name.text().as_str(), &gender, &case);
+        let last_name = pv.first_name(self.last_name.text().as_str(), &gender, &case);
+        let patronimic_name = pv.first_name(self.patronimic_name.text().as_str(), &gender, &case);
+
+        let res = vec![last_name, first_name, patronimic_name].join(" ");
         self.content.set_text(&res);
     }
 }

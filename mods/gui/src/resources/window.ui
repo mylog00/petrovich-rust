@@ -28,6 +28,41 @@
           </object>
         </child>
         <child>
+          <object class="GtkBox">
+            <property name="orientation">horizontal</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkDropDown" id="gender">
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item>Male</item>
+                      <item>Female</item>
+                      <item>Androgynous</item>
+                    </items>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkDropDown" id="case">
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item>Nominative</item>
+                      <item>Genitive</item>
+                      <item>Dative</item>
+                      <item>Accusative</item>
+                      <item>Instrumental</item>
+                      <item>Prepositional</item>
+                    </items>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
           <object class="MyGtkAppCustomButton" id="button">
             <signal name="clicked" handler="handle_button_clicked" swapped="true"/>
             <property name="label">Find!</property>
