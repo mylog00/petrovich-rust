@@ -13,8 +13,7 @@ fn main() {
 
     application.connect_activate(|app| {
         let window = ApplicationWindow::new(app);
-        window.set_title("Petrovich");
-        window.set_position(gtk::WindowPosition::Center);
+        window.set_title(Some("Petrovich"));
         window.set_default_size(450, 300);
 
         let first_name = Entry::new();
@@ -67,15 +66,15 @@ fn main() {
         });
 
         let vbox = Box::new(gtk::Orientation::Vertical, 2);
-        vbox.add(&first_name);
-        vbox.add(&last_name);
-        vbox.add(&patronimic_name);
-        vbox.add(&button);
-        vbox.pack_end(&out_label, true, true, 0);
+        vbox.append(&first_name);
+        vbox.append(&last_name);
+        vbox.append(&patronimic_name);
+        vbox.append(&button);
+        vbox.append(&out_label);
 
-        window.add(&vbox);
+        window.set_child(Some(&vbox));
 
-        window.show_all();
+        window.present();
     });
 
     application.run();
