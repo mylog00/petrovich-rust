@@ -2,7 +2,7 @@
 name = "petrovich_core"
 version = "0.1.1"
 authors = ["mylog00"]
-edition = "2018"
+edition = "2021"
 
 readme = "README.md"
 license = "Apache-2.0"

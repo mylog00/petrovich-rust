@@ -2,7 +2,7 @@
 name = "petrovich"
 version = "0.1.0"
 authors = ["devrtc0 <azat.mirzaianov@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 petrovich_core = { path = "../core" }
