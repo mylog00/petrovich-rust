@@ -2,9 +2,9 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-use petrovich::case::Case;
-use petrovich::gender::Gender;
-use petrovich::Petrovich;
+use petrovich_core::case::Case;
+use petrovich_core::gender::Gender;
+use petrovich_core::Petrovich;
 
 const RULES_FILE: &str = "petrovich-rules/rules.yml";
 const TEST_FILE_DIR: &str = "petrovich-eval/";

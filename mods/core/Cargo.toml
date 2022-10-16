@@ -1,0 +1,15 @@
+[package]
+name = "petrovich_core"
+version = "0.1.1"
+authors = ["mylog00"]
+edition = "2021"
+
+readme = "README.md"
+license = "Apache-2.0"
+
+[lib]
+name = "petrovich_core"
+path = "src/lib.rs"
+
+[dependencies]
+yaml-rust = "0.4"

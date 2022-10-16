@@ -1,0 +1,15 @@
+[package]
+name = "petrovich"
+version = "0.1.0"
+authors = ["devrtc0 <azat.mirzaianov@gmail.com>"]
+edition = "2021"
+
+[dependencies]
+petrovich_core = { path = "../core" }
+gtk = { version = "0.4.8", package = "gtk4" }
+gio = { version = "0.15" }
+glib ={ version = "0.15"}
+once_cell = "1.5"
+
+[build-dependencies]
+gtk = { version = "0.4.8", package = "gtk4" }
